@@ -1,0 +1,177 @@
+
+[lieu entrée]
+
+    Vous êtes au pied de la montagne. Du haut de ses 1500m, le sommet vous regarde avec une certaine indifférence bienveillante. Devant vous, le chemin se sépare en deux voies, l'une abrupte et directe, l'autre plus douce.
+
+    [il y a] des fleurs du printemps
+
+    [vers la voie abrupte] la cascade
+    [vers la voie douce] les bosquets chantant
+
+[lieu la cascade]
+
+    Vous arrivez devant une cascade qu'alimente un petit ruisseau. Le bruit de l'eau est reposant, et il fait ici très frais. Vous vous sentez {pleine/plein} d'énergie.
+
+    [vers la descente raide] entrée
+    [vers le long du ruisseau] le clavier de pierres
+
+[lieu les bosquets chantant]
+
+    Vous marchez à travers de petits bosquets. Le vent siffle à travers les branches et semble faire chanter les végétaux.
+
+    [vers le sommet] les sous-bois
+    [vers la vallée] entrée
+
+[lieu le clavier de pierres]
+
+    En suivant le ruisseau, vous arrivez à un clavier de pierres. Sous l'eau, de nombreuses pierres ont été disposées avec soin. Chaque pierre montre un petit symbole gravé, à la signification mystérieuse.
+
+    [il y a] un cristal lumineux
+
+    [vers l'aval] la cascade
+    [vers l'amont] la hutte de Miniu
+
+[lieu les sous-bois]
+
+    Vous arrivez dans des sous-bois aux ombrages accueillants. La quiétude du lieu invite à la méditation. Deux petits écureuils sautent dans les branches.
+
+    [il y a] des cèpes
+
+    [vers la vallée] les bosquets chantant
+    [vers le levant] le sentier qui tourne
+    [vers le couchant] l'entrée de la grotte
+
+[lieu l'entrée de la grotte]
+
+    Vous êtes dans un petit ravin, au fond duquel s'ouvre une brèche vers une grotte obscure.
+
+    [vers la grotte] le couloir principal de la grotte
+    [vers les hauteurs du ravin] les sous-bois
+
+[lieu le couloir principal de la grotte]
+
+    Il fait tellement sombre ici, que vous ne voyez rien à part l'entrée de la grotte. Dans le noir, vous n'arrivez pas à trouver un passage. Vous ne pouvez que faire demi-tour.
+
+    [vers l'entrée] l'entrée de la grotte
+
+    [tenant un cristal lumineux]
+
+        Il fait très sombre ici, mais heureusement vous tenez en main un cristal qui éclaire de sa lumière phosphorescente les peintures rupestres qu'un chaman a tracé il y a très longtemps. Vous distinguez une voie principale qui semble descendre plus avant au coeur de la montagne, et une petite faille sur le côté, juste assez large pour que vous passiez.
+
+        [vers l'entrée] l'entrée de la grotte
+        [vers le gouffre] le gouffre
+        [vers la faille] la faille
+    
+[lieu le gouffre]
+
+    Vous êtes dans une cavité assez grande et votre sang se glace quand vous voyez un ours allongé au fond du gouffre, à quelques mètres de vous. Il vous regarde, et sa respiration est forte.
+
+        [utilise des cèpes] Peut-être que les ours aiment les champignons ? Vous répandez quelques morceaux de cèpes par terre puis jetez le reste vers l'entrée de la grotte. Vous vous réfugiez dans la petite faille, et bingo ! L'ours se lève et suit la piste des friandises, laissant sa tanière vide.
+
+        [pendant 2 minutes] l'ours est parti
+
+    [vers le boyau principal] le couloir principal de la grotte
+
+    [si l'ours est parti]
+
+        Vous êtes dans l'antre d'un ours. Mais l'ours ayant quitté sa tanière, vous pouvez l'explorer tranquillement.
+
+        [il y a] une clef de rubis
+        [vers le boyau principal] le couloir principal de la grotte
+
+[lieu la faille]
+
+    Cette petite faille est juste assez grande pour vous permettre de vous cacher.
+    [vers le boyau principal] le couloir principal de la grotte
+
+[lieu le sentier qui tourne]
+
+    Vous suivez un sentier qui tournicote dans un sens et dans un autre. Serpentant entre les arbres d'une forêt profonde, ce sentier vous désoriente un peu plus à chaque pas. Il semble que vous soyez {perdue/perdu} !
+
+    [vers la droite] à droite du sentier
+    [vers la gauche] à gauche du sentier
+    [vers tout droit] les sous-bois
+
+[lieu à droite du sentier]
+
+    Vous suivez le sentier tortueux à travers les arbres, vous demandant jusqu'où il faudra aller pour sortir des arbres.
+
+    [vers la droite] à gauche du sentier
+    [vers la gauche] le sentier qui tourne
+
+[lieu à gauche du sentier]
+
+    Vous suivez le sentier tortueux à travers les arbres, vous demandant jusqu'où il faudra aller pour sortir des arbres.
+
+    [vers la gauche] à droite du sentier
+    [vers la droite] l'autre sentier qui tourne
+
+[lieu l'autre sentier qui tourne]
+
+    Vous suivez un sentier qui tournicote dans un sens et dans un autre. Serpentant entre les arbres d'une forêt profonde, ce sentier vous désoriente un peu plus à chaque pas. Il semble que vous soyez {perdue/perdu} !
+
+    [vers la droite] à droite du sentier
+    [vers la gauche] à gauche du sentier
+    [vers tout droit] la cabane du trappeur
+
+[lieu la cabane du trappeur]
+
+    Vous êtes devant une vieille cabane de trappeur. Un peu de fumée sort par la fenêtre. Vous pouvez entendre un vieux bougon ronchonner à l'intérieur.
+
+    [vers la cabane] chez le trappeur
+    [vers la forêt] l'autre sentier qui tourne
+    
+[lieu chez le trappeur]
+
+    Vous êtes chez le trappeur. Il est en train de faire cuire sa popotte et ronchonne...
+
+    "Maudits ours, à cause d'eux on ne trouve plus de cèpes pour mettre à la potée {ma bonne dame/mon bon monsieur}. Ils en raffolent !..."
+
+    [utilise des cèpes] Le trappeur est bien content ! Il met vos cèpes dans sa potée et vous invite à prendre le repas avec lui, puis vous pourrez repartir.
+
+    [utilise des fleurs du printemps] Le trappeur est bien content ! Il met vos fleurs dans sa potée et vous invite à prendre le repas avec lui, puis vous pourrez repartir.
+
+    [vers la porte] la cabane du trappeur
+
+    [tenant des fleurs du printemps]
+
+        Vous êtes chez le trappeur. Il est en train de faire cuire sa popotte et ronchonne...
+
+        "Maudits ours..."
+
+        Puis en vous voyant : "Oh, des fleurs du printemps ! Vous savez que c'est très bon dans la potée ?"
+
+        [utilise des cèpes] Le trappeur est bien content ! Il met vos cèpes dans sa potée et vous invite à prendre le repas avec lui, puis vous pourrez repartir.
+
+        [utilise des fleurs du printemps] Le trappeur est bien content ! Il met vos fleurs dans sa potée et vous invite à prendre le repas avec lui, puis vous pourrez repartir.
+
+        [vers la porte] la cabane du trappeur
+
+[lieu la hutte de Miniu]
+
+    Vous arrivez à une hutte fort bien entretenue. Sur le perron, une belle et jeune sorcière, les mains sur les hanches, vous regarde d'un drôle d'air... "Alors {mademoiselle/jeune homme}, on est venu se perdre dans la montagne ? Je suis Miniu. Je vous observe depuis tout à l'heure, à aller et venir dans tous les sens ! Je peux vous aider à grimper là-haut si vous voulez. Mais en échange, il faudra me donner quelque chose de vraiment unique."
+
+    [vers le ruisseau] le clavier de pierres
+
+    [utilise des fleurs du printemps] ... "C'est bien beau les fleurs, mais je veux quelque chose de vraiment unique !"
+
+    [utilise des cèpes] ... "Pouah, des champignons, j'ai horreur des champignons !"
+
+    [utilise une clef de rubis] ... "Wouah, alors ça ! Voilà quelque chose de vraiment unique ! Je suis contente."
+    [pendant 20 secondes] miniu est contente
+
+    [si miniu est contente]
+    
+        Miniu prend son balai et vous invite à prendre place sur le siège passager... "Allez va, je vous emmène là-haut. Et dépéchez-vous avant que je change d'avis !
+
+        [vers le ruisseau] le clavier de pierres
+        [vers le balai] le balai
+
+[lieu le balai]
+
+    Miniu vous dépose au sommet de la montagne, et redécolle aussi sec sur son balai. "Et ne vous perdez pas sur le chemin du retour hein !... Rhâ, ces touristes alors..."
+
+    Félicitations ! Vous avez résolu le premier labyrinthe.
+
+    [victoire]
+

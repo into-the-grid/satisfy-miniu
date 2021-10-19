@@ -1,0 +1,127 @@
+
+
+
+body {
+    font-family: Roboto;
+    font-weight: 300;
+    padding-bottom: 4rem;
+    color: #202020;
+    background: #E0E0E0;
+}
+
+
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background: #E0E0E0;
+}
+
+
+
+a.btn {
+    font-size: 1rem;
+}
+
+
+
+.btn-sm {
+    padding: .05rem .5rem !important;
+}
+
+
+.dropdown-item {
+    font-family: Roboto;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+    color: #404040;
+}
+
+
+
+
+.player-name {
+    font-style: italic;
+    color: navy;
+    cursor: pointer;
+}
+
+
+.player-name:hover {
+    text-decoration: underline;
+}
+
+
+.transparent {
+    background-color: transparent;
+    border-top: none;
+}
+
+
+#danger-zone {
+    text-align: right;
+}
+
+
+
+#danger-zone button {
+    display: inline-block;
+    font-style: italic;
+}
+
+
+
+#radio-container {
+    text-align: right;
+}
+
+
+
+#radio-container > div {
+    opacity: 0.5;
+    filter: saturate(0);
+    transform: scale(0.5) translate(170px, 0);
+    transition: all 0.5s;
+}
+
+
+
+#radio-container > div:hover {
+    filter: saturate(1);
+    transform: scale(1) translate(0px, 8px);
+    opacity: 1;
+}
+
+
+footer {
+    text-align: center;
+}
+
+footer div {
+    border-top: 1px solid #808080;
+    font-size: 12px;
+}
+
+
+.hero-img img {
+    width: 100%;
+    position: relative;
+    z-index: -2;
+}
+
+
+
+#fireworks {
+    z-index: -1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}

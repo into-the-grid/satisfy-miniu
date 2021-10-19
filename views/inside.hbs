@@ -1,0 +1,286 @@
+<script src="js/fireworks.js"></script>
+<script src="js/ui.js"></script>
+
+<div id="fireworks"></div>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a id="lab-name" class="navbar-brand" href="#">Salon d'embarquement</a>
+</nav>
+<div class="hero-img">
+    <img src="assets/background.jpg">
+</div>
+<div class="container">
+    <br>
+    <br>
+    <div id="labyrinth-list">
+        <p>Bienvenue,</p>
+        <p>Vous êtes actuellement au rang <span id="user-rank"></span>. Votre rang indique le nombre de labyrinthes vous avez résolus. Terminez des labyrinthes pour augmenter votre rang et avoir accès à encore plus de labyrinthes ! Voici la liste des labyrinthes qui vous sont accessibles pour le moment. Bon jeu !</p>
+        <br>
+        <div id="labyrinth-buttons"></div>
+        <br>
+    </div>
+
+
+    <ul id="messages" class="list-group list-group-flush transparent"></ul>
+    <br>
+    <div id="room-description"></div>
+    <div id="things-here"></div>
+    <div id="players-here"></div>
+    <div id="inventory"></div>
+    <div id="exits"></div>
+
+
+
+    <form action="">
+        <div class="form-group">
+            <small id="user-count" class="form-text text-muted">Conversation globale (0 en ligne)</small>
+            <input class="form-control" id="m" autocomplete="off" />
+        </div>
+        <button class="btn btn-success">Envoyer</button>
+    </form>
+    <div id="danger-zone" style="display:none">
+        <button class="btn btn-danger btn-sm" onclick="quitLab()">Quitter le labyrinthe</button>
+    </div>
+
+    <div id="radio-container">
+    </div>
+
+</div>
+
+
+
+<script>
+
+    let fireworks = new Fireworks($("#fireworks")[0], {
+        delay: { min: 2, max: 5 }
+    });
+
+    var socket;
+
+    var my = {
+        name: "{{{info.firstName}}} {{{info.lastName}}}",
+        description: "{{{info.description}}}",
+        strongHand: "{{{info.strongHand}}}",
+        genre: "{{{info.genre}}}",
+        rank: {{{ info.level }}},
+        labsDone: "{{{info.labsDone}}}".split(',')
+    };
+
+    let labList = "{{{info.labyrinths}}}".split(',');
+
+    $("#user-rank").html(my.rank);
+
+    const newId = function () {
+        let id = 0n;
+        return function (prefix) {
+            return prefix + (id++).toString();
+        }
+    }()
+
+    function refreshLabList() {
+        $("#labyrinth-buttons").html('');
+        for (let lab of labList) {
+            let html = my.labsDone.includes(lab) ?
+                `<button class="btn btn-outline-primary" onclick='enterLab("${lab}")'>${lab}</button> &nbsp; ` :
+                `<button class="btn btn-primary" onclick='enterLab("${lab}")'>${lab}</button> &nbsp; `;
+            $("#labyrinth-buttons").append(html);
+        }
+    }
+
+    function appendStory(msg) {
+        let id = newId("LI");
+        $('#messages').append($('<li>').attr('id', id).html(msg).addClass("list-group-item transparent"));
+        window.scrollTo(0, document.body.scrollHeight);
+        $('[data-toggle="popover"]').popover({ trigger: 'hover' });
+        setTimeout(function () {
+            $('#' + id).remove();
+        }, 60000);
+    }
+
+    $(function () {
+
+        refreshLabList();
+
+        socket = io();
+
+        socket.emit("introducing", my);
+
+        $('form').submit(function () {
+
+            let p = JSON.parse(JSON.stringify(my));
+            delete p.satchel;
+            socket.emit('chat message', { player: p, line: $('#m').val() });
+            $('#m').val('');
+            return false;
+        });
+
+        socket.on('chat message', function (msg) {
+            let p = Object.assign({ leftHand: '', rightHand: '' }, msg.player);
+            appendStory(playerNameHtml(p) + "&nbsp;&nbsp;💬&nbsp; " + msg.line);
+        });
+
+        socket.on('labyrinth data', function (data) {
+
+            console.log(data);
+
+            my.leftHand = data.leftHand;
+            my.rightHand = data.rightHand;
+            my.satchel = data.satchel;
+
+            if (ui[data.msg]) ui[data.msg](data);
+        });
+
+        socket.on("user count", function (count) {
+
+            $("#user-count").html(`Conversation globale &nbsp;(${count} en ligne)`)
+        });
+
+
+        socket.on("ranking up", function (data) {
+
+            fireworks.start();
+            if (my.rank != data.labsDone.length)
+                appendStory("Vous avez gagné 1 rang supplémentaire !");
+            my.rank = data.labsDone.length;
+            my.labsDone = data.labsDone;
+            labList = data.availableLabs;
+            $("#user-rank").html(my.rank);
+            refreshLabList();
+
+
+            my.death = "FÉLICITATIONS !! Vous avez résolu ce labyrinthe !";
+
+            $("#exits").html("<p>"+my.death+"</p>");
+        });
+        
+
+        socket.on("dead", function (data) {
+
+            my.death = "Pour vous, c'est la fin de l'aventure. Sans doute aurez-vous plus de chance la prochaine fois ?";
+
+            $("#exits").html("<p>"+my.death+"</p>");
+        });
+
+
+        socket.on("introduce", function () {
+
+            socket.emit("introducing", my);
+            quitLab();
+        });
+
+    });
+
+
+
+    function enterLab(lab) {
+
+        socket.emit("enter labyrinth", {
+            labyrinth: lab
+        });
+
+        $("#labyrinth-list").css("display", "none");
+        $("#danger-zone").css("display", "block");
+
+        $("#lab-name").text(lab);
+    }
+
+
+
+    function quitLab(lab) {
+
+        my.death = false;
+        socket.emit("exit labyrinth");
+
+        $("#labyrinth-list").css("display", "block");
+        $("#danger-zone").css("display", "none");
+        $("#room-description").html('');
+        $("#things-here").html('');
+        $("#players-here").html('');
+        $("#inventory").html('');
+        $("#exits").html('');
+
+        $("#lab-name").text("Salon d'embarquement");
+
+        fireworks.stop();
+    }
+
+
+
+    function doExit(e) {
+
+        socket.emit("command", {
+            cmd: "leave",
+            exit: e.innerHTML
+        })
+    }
+
+
+
+    function takeThing(e) {
+
+        let freeSlot = my.strongHand;
+
+        if (my[freeSlot].length)
+            if (freeSlot == "leftHand")
+                freeSlot = "rightHand";
+            else
+                freeSlot = "leftHand";
+
+        if (my[freeSlot].length)
+            freeSlot = "satchel";
+
+        if (my[freeSlot].length) {
+            appendStory("Vous n'avez plus de place !");
+            return;
+        }
+
+        socket.emit("command", {
+            cmd: "take",
+            thing: e.innerHTML,
+            slot: freeSlot
+        })
+    }
+
+
+
+    function useThing(thing) {
+
+        socket.emit("command", {
+            cmd: "use",
+            thing
+        });
+    }
+
+
+
+    function dropThing(thing) {
+
+        socket.emit("command", {
+            cmd: "drop",
+            thing
+        });
+    }
+
+
+
+    function hideThing(thing) {
+
+        socket.emit("command", {
+            cmd: "hide",
+            thing
+        });
+    }
+
+
+
+    function showThing(thing) {
+
+        socket.emit("command", {
+            cmd: "show",
+            thing
+        });
+    }
+
+
+
+</script>

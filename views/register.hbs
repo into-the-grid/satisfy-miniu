@@ -1,0 +1,86 @@
+<div class="row justify-content-md-center" style="margin-top: 30px">
+    <div class="col-md-6">
+
+        {{#if message}}
+        <div class="alert {{messageClass}}" role="alert">
+            {{message}}
+        </div>
+        {{/if}}
+
+        <h1>Inscription</h1>
+        <p>Mettez n'importe quoi, <b>sauf pour femme/homme</b> et droitier/gaucher. Votre anonymat est prioritaire, mais votre sexe est nécessaire pour le bon déroulé des histoires (exemple : vous vous sentez fatiguée / fatigué). Merci pour votre compréhension.</p>
+        <p>Les autres joueurs vous verront comme "Prénom&nbsp;Nom". Votre description sera visible publiquement.</p>
+
+        <form method="POST" action="/register">
+            <div class="form-group">
+                <label for="firstNameInput">Prénom</label>
+                <input name="firstName" type="text" class="form-control" id="firstNameInput">
+            </div>
+
+            <div class="form-group">
+                <label for="lastNameInput">Nom de famille</label>
+                <input name="lastName" type="text" class="form-control" id="lastNameInput">
+            </div>
+
+            <div class="form-group">
+                <div class="form-check" onclick="isWoman()">
+                    <input class="form-check-input" type="radio" name="genre" id="woman" value="woman" checked>
+                    <label class="form-check-label" for="woman">Je suis une femme</label>
+                </div>
+
+                <div class="form-check" onclick="isMan()">
+                    <input class="form-check-input" type="radio" name="genre" id="man" value="man">
+                    <label class="form-check-label" for="man">Je suis un homme</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Courte description</label>
+                <textarea class="form-control" name="description" id="description" rows="5">un être humain</textarea>
+            </div>
+
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="strongHand" id="rightHand" value="rightHand"
+                        checked>
+                    <label class="form-check-label" for="rightHand" id="label-rightHand">Je suis droitière</label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="strongHand" id="leftHand" value="leftHand">
+                    <label class="form-check-label" for="leftHand" id="label-leftHand">Je suis gauchère</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="emailInput">Adresse e-mail</label>
+                <input name="email" type="email" class="form-control" id="emailInput" placeholder="@">
+            </div>
+
+            <div class="form-group">
+                <label for="passwordInput">Mot de passe</label>
+                <input name="password" type="password" class="form-control" id="passwordInput" placeholder="***">
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPasswordInput">Confirmez le mot de passe</label>
+                <input name="confirmPassword" type="password" class="form-control" id="confirmPasswordInput"
+                    placeholder="***">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Inscription</button>
+        </form>
+    </div>
+</div>
+<script>
+    $("#woman").prop("checked", true).trigger("click");
+    $("#rightHand").prop("checked", true).trigger("click");
+    function isWoman() {
+        $("#label-rightHand").html("Je suis droitière");
+        $("#label-leftHand").html("Je suis gauchère");
+    }
+    function isMan() {
+        $("#label-rightHand").html("Je suis droitier");
+        $("#label-leftHand").html("Je suis gaucher");
+    }
+</script>
